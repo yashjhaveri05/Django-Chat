@@ -1,6 +1,7 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
+
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         user_id = self.scope["session"]["_auth_user_id"]
@@ -15,7 +16,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.accept()
         print('connected')
 
-    async def disconnect(self,*args,**kwargs):
+    async def disconnect(self, *args, **kwargs):
         # Leave room group
         print("disconnected")
         await self.channel_layer.group_discard(
@@ -24,7 +25,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
     # Receive message from WebSocket
-    async def receive(self, text_data=None,bytes_data = None):
+    async def receive(self, text_data=None, bytes_data=None):
         print("receiving")
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
@@ -43,6 +44,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         print(message)
         # Send message to WebSocket
         await self.send(
-             text_data=json.dumps({
-            'message': message
-        }))
+            text_data=json.dumps({
+                'message': message
+            }))
