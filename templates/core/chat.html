@@ -30,15 +30,23 @@
                     </div>
                     <div class="panel-footer">
                         <div class="input-group">
-                            <input id="chat-input" type="text"
+                            <div class="form-group">
+                                <input id="chat-input" type="text"
                                    class="form-control input"
                                    placeholder="Type your message here ..."
                                    maxlength="500">
+                            </div>
+                            <div class="form-group">
+                                <p>Image</p>
+                                <input type="file" class="form-control" id="input-image" name="input-image" accept="image/*">
+                            </div>
+                            <div class="form-group">
+                                <p>File</p>
+                                <input type="file" class="form-control" id="input-file" name="input-image">
+                            </div>
                             <span class="input-group-btn">
-                            <button class="btn btn-info btn"
-                                    id="btn-send">
-                                Send</button>
-                        </span>
+                                <button type="submit" class="btn btn-info btn" id="myFormSubmit">Send</button>
+                            </span>
                         </div>
                     </div>
                 </div>
