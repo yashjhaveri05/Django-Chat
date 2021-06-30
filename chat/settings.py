@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-        'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
@@ -86,12 +86,24 @@ ASGI_APPLICATION = 'chat.asgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "d4uiliggvn5521",
+        "HOST": "ec2-52-5-247-46.compute-1.amazonaws.com",
+        "PORT": "5432",
+        "USER": "kewcdnkikvetsr",
+        "PASSWORD": "d2c8023d1327aa0d097ad6ae37b0514d384a5556e243a4dff40fd501a49b0c54",
+        #     "OPTIONS": {
+        #         # "init_command": "",
+        #     },
+        # }
+
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': BASE_DIR / 'db.sqlite3',
+        # }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
