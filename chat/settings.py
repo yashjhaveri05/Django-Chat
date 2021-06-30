@@ -41,13 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Apps
     'core',
-
+    'whitenoise.runserver_nostatic',
+    'corsheaders',
     # 3rd party
     'rest_framework',
     'channels',
 ]
 
 MIDDLEWARE = [
+        'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -142,6 +146,7 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
@@ -152,15 +157,19 @@ try:
 except ImportError:
     pass
 
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', 6379)],
+#         },
+#     },
+# }
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
 }
-
 # CHANNEL_LAYERS = {
 #     "default": {
 #         "BACKEND": "asgiref.inmemory.ChannelLayer",
