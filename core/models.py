@@ -14,7 +14,9 @@ class MessageModel(models.Model):
                            related_name='to_user', db_index=True)
     timestamp = models.DateTimeField('timestamp', auto_now_add=True, editable=False,
                               db_index=True)
-    body = models.TextField('body')
+    body = models.TextField('body',blank=True,null=True)
+    image = models.ImageField('image',blank=True,null=True)
+    file_field = models.FileField('file_field',blank=True,null=True)
 
     def __str__(self):
         return str(self.id)
@@ -24,7 +26,10 @@ class MessageModel(models.Model):
         Toy function to count body characters.
         :return: body's char number
         """
-        return len(self.body)
+        if self.body:
+            return len(self.body)
+        else:
+            return 0
 
     def notify_ws_clients(self):
         """
@@ -48,7 +53,12 @@ class MessageModel(models.Model):
         if the message is new.
         """
         new = self.id
-        self.body = self.body.strip()  # Trimming whitespaces from the body
+        if self.body:
+            self.body = self.body.strip()
+        else:
+            self.body = self.body
+        self.image = self.image
+        self.file_field = self.file_field
         super(MessageModel, self).save(*args, **kwargs)
         if new is None:
             self.notify_ws_clients()
